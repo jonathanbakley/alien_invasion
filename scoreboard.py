@@ -64,7 +64,6 @@ class Scoreboard():
             ship = Ship(self.ai_game)
             ship.rect.x = 10 + ship_number * ship.rect.width
             ship.rect.y = 10
-            print(ship.rect.x, ship.rect.y)
             self.ships.add(ship)
 
     def format_score(self, score):

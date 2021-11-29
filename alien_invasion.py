@@ -217,6 +217,8 @@ class AlienInvasion:
         # Draw the play button if the game is inactive
         if not self.game_stats.game_active:
             self.play_button.draw_button()
+            with open("high_score.txt", "w") as file_object:
+                file_object.write(str(self.game_stats.high_score))
 
         # Draw score board
         self.score_board.show_score()
