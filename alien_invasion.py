@@ -100,6 +100,7 @@ class AlienInvasion:
             self.game_stats.game_active = True
 
             self.score_board.prep_score()
+            self.score_board.prep_high_score()
 
             # Get rid of any remaining aliens and bullets.
             self.aliens.empty()
@@ -128,8 +129,9 @@ class AlienInvasion:
     def _ship_hit(self):
         """Respond to the ship being hit by an alien."""
         if self.game_stats.ships_left > 0:
-            # Decrement ships_lift.
+            # Decrement ships_lift and update scoreboard.
             self.game_stats.ships_left -= 1
+            self.score_board.prep_ships()
 
             # Get rid of any remaining aliens and bullets.
             self.aliens.empty()
@@ -183,6 +185,10 @@ class AlienInvasion:
             self._create_fleet()
             self.settings.increase_speed()
 
+            # Increase level.
+            self.game_stats.level += 1
+            self.score_board.prep_level()
+
     def _check_bullet_alien_collisions(self):
         """Respond to bullet-alien collisions."""
         # Check for bullet and alien collisions and remove
@@ -195,6 +201,9 @@ class AlienInvasion:
                 self.game_stats.score += self.settings.alien_points * \
                     len(aliens)
             self.score_board.prep_score()
+            self.score_board.prep_level()
+            self.score_board.prep_ships()
+            self.score_board.check_high_score()
 
     def _update_screen(self):
         """Redraw the screen during each pass through the loop."""
